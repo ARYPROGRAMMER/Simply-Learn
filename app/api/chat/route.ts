@@ -53,7 +53,7 @@ export async function POST(request: Request) {
 
     // Call Gemini 2.5 Flash
     const response = await genAI.models.generateContent({
-      model: "gemini-2.5-flash-preview-05-20",
+      model: "gemini-2.5-flash",
       contents: formattedMessages,
       config: {
         systemInstruction: SYSTEM_PROMPT,

@@ -23,14 +23,14 @@ query "auth/profile" verb=PATCH {
     }
 
     // Update user with provided fields
-    // Use coalesce to keep existing value if input is empty
+    // If input is empty string, keep existing value; otherwise use new value
     db.edit users {
       field_name = "id"
       field_value = $auth.id
       data = {
-        first_name: $input.first_name || $user.first_name,
-        last_name: $input.last_name || $user.last_name,
-        avatar_url: $input.avatar_url || $user.avatar_url,
+        first_name: $input.first_name != "" ? $input.first_name : $user.first_name,
+        last_name: $input.last_name != "" ? $input.last_name : $user.last_name,
+        avatar_url: $input.avatar_url != "" ? $input.avatar_url : $user.avatar_url,
         updated_at: "now"
       }
     } as $updated_user
@@ -47,4 +47,3 @@ query "auth/profile" verb=PATCH {
     created_at: $updated_user.created_at
   }
 }
-

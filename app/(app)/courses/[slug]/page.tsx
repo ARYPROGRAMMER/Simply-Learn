@@ -1,5 +1,4 @@
 import { notFound, redirect } from "next/navigation";
-import { Header } from "@/components/Header";
 import { CourseContent } from "@/components/courses";
 import { getCourseWithProgress, getCourseBySlug } from "@/lib/xano/client";
 import { getAuthToken, getServerUser } from "@/lib/xano/server-auth";
@@ -118,11 +117,8 @@ export default async function CoursePage({ params }: CoursePageProps) {
         }}
       />
 
-      {/* Navigation */}
-      <Header />
-
       {/* Main Content */}
-      <main className="relative z-10 px-6 lg:px-12 py-12 max-w-7xl mx-auto">
+      <main className="relative z-10 px-6 lg:px-12 pt-8 pb-12 max-w-7xl mx-auto">
         <CourseContent course={transformedCourse} userId={user?.id ? String(user.id) : null} />
       </main>
     </div>
