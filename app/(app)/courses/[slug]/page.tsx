@@ -30,6 +30,12 @@ export default async function CoursePage({ params }: CoursePageProps) {
     notFound();
   }
 
+  // Nest lessons inside their modules (Xano returns them separately)
+  const modulesWithLessons = course.modules?.map((m) => ({
+    ...m,
+    lessons: course.lessons?.filter((l) => l.module === m.id) || [],
+  })) || [];
+
   // Transform the Xano course to match the existing component format
   const transformedCourse = {
     _id: String(course.id),
@@ -38,13 +44,13 @@ export default async function CoursePage({ params }: CoursePageProps) {
     description: course.description,
     tier: course.tier,
     featured: course.featured,
-    thumbnail: course.thumbnail_url
-      ? { asset: { _id: "", url: course.thumbnail_url } }
+    thumbnail: course.image_url
+      ? { asset: { _id: "", url: course.image_url } }
       : null,
     category: course.category
       ? { _id: String(course.category.id), title: course.category.title }
       : null,
-    modules: course.modules?.map((m) => ({
+    modules: modulesWithLessons.map((m) => ({
       _id: String(m.id),
       title: m.title,
       description: m.description,
@@ -59,10 +65,10 @@ export default async function CoursePage({ params }: CoursePageProps) {
           ? { asset: { playbackId: l.mux_playback_id } }
           : null,
       })) || [],
-    })) || [],
+    })),
     completedBy: [],
-    moduleCount: course.module_count || course.modules?.length || 0,
-    lessonCount: course.lesson_count || 0,
+    moduleCount: course.module_count || modulesWithLessons.length || 0,
+    lessonCount: course.lesson_count || course.lessons?.length || 0,
     completedLessonCount: course.completed_lesson_count || 0,
   };
 

@@ -11,6 +11,7 @@ import type {
   PlatformStats,
   MuxTokens,
   MuxUploadUrl,
+  MuxUploadStatus,
   MuxAsset,
   SearchResult,
   ChatMessage,
@@ -340,6 +341,13 @@ export async function createMuxUploadUrl(
     },
     authToken
   );
+}
+
+export async function getMuxUploadStatus(
+  authToken: string,
+  uploadId: string
+): Promise<MuxUploadStatus> {
+  return fetchApi<MuxUploadStatus>(`/mux/get_upload?upload_id=${encodeURIComponent(uploadId)}`, {}, authToken);
 }
 
 export async function getMuxAssetStatus(

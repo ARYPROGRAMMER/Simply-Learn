@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, BookOpen, Play, Tag } from "lucide-react";
+import { ArrowLeft, BookOpen, Play, Tag, Clock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { TIER_STYLES } from "@/lib/constants";
 import type { Tier, Category } from "@/lib/xano/types";
@@ -9,8 +9,8 @@ interface CourseHeroProps {
   title?: string | null;
   description?: string | null;
   tier?: Tier | null;
-  image_url?: string | null;
-  category?: Category | null;
+  thumbnail?: { asset?: { _id?: string; url?: string } | null } | null;
+  category?: { _id?: string; title?: string | null } | null;
   moduleCount?: number | null;
   lessonCount?: number | null;
 }
@@ -19,33 +19,34 @@ export function CourseHero({
   title,
   description,
   tier,
-  image_url,
+  thumbnail,
   category,
   moduleCount,
   lessonCount,
 }: CourseHeroProps) {
   const displayTier = tier ?? "free";
   const styles = TIER_STYLES[displayTier];
+  const imageUrl = thumbnail?.asset?.url;
 
   return (
     <div className="mb-12">
       {/* Back link */}
       <Link
         href="/dashboard"
-        className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors mb-8"
+        className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors mb-8 group"
       >
-        <ArrowLeft className="w-4 h-4" />
+        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
         Back to dashboard
       </Link>
 
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Thumbnail */}
         <div
-          className={`relative w-full lg:w-80 h-48 lg:h-52 rounded-2xl bg-linear-to-br ${styles.gradient} flex items-center justify-center overflow-hidden shrink-0`}
+          className={`relative w-full lg:w-96 h-56 lg:h-60 rounded-2xl bg-linear-to-br ${styles.gradient} flex items-center justify-center overflow-hidden shrink-0 shadow-2xl shadow-violet-500/10`}
         >
-          {image_url ? (
+          {imageUrl ? (
             <Image
-              src={image_url}
+              src={imageUrl}
               alt={title ?? "Course thumbnail"}
               fill
               className="object-cover"
@@ -53,45 +54,45 @@ export function CourseHero({
           ) : (
             <div className="text-7xl opacity-50">📚</div>
           )}
-          <div className="absolute inset-0 bg-black/10" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
         </div>
 
         {/* Course Info */}
         <div className="flex-1">
           <div className="flex flex-wrap items-center gap-3 mb-4">
-            <Badge className={`${styles.text} ${styles.border} bg-transparent`}>
+            <Badge className={`${styles.text} ${styles.border} bg-transparent font-semibold px-3 py-1`}>
               {displayTier.toUpperCase()}
             </Badge>
             {category?.title && (
               <Badge
                 variant="outline"
-                className="border-zinc-700 text-zinc-400"
+                className="border-zinc-700 text-zinc-400 px-3 py-1"
               >
-                <Tag className="w-3 h-3 mr-1" />
+                <Tag className="w-3 h-3 mr-1.5" />
                 {category.title}
               </Badge>
             )}
           </div>
 
-          <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-4 text-white">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight mb-4 text-white leading-tight">
             {title ?? "Untitled Course"}
           </h1>
 
           {description && (
-            <p className="text-lg text-zinc-400 mb-6 leading-relaxed max-w-2xl">
+            <p className="text-lg text-zinc-400 mb-8 leading-relaxed max-w-2xl">
               {description}
             </p>
           )}
 
-          <div className="flex items-center gap-6 text-sm text-zinc-500">
-            <span className="flex items-center gap-2">
-              <BookOpen className="w-4 h-4" />
-              {moduleCount ?? 0} modules
-            </span>
-            <span className="flex items-center gap-2">
-              <Play className="w-4 h-4" />
-              {lessonCount ?? 0} lessons
-            </span>
+          <div className="flex flex-wrap items-center gap-4 text-sm">
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-800/60 border border-zinc-700/50">
+              <BookOpen className="w-4 h-4 text-violet-400" />
+              <span className="text-zinc-300">{moduleCount ?? 0} modules</span>
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-800/60 border border-zinc-700/50">
+              <Play className="w-4 h-4 text-emerald-400" />
+              <span className="text-zinc-300">{lessonCount ?? 0} lessons</span>
+            </div>
           </div>
         </div>
       </div>

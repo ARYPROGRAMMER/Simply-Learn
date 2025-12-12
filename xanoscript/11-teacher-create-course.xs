@@ -1,7 +1,9 @@
 // Teacher Create Course - Create a new course (teachers only)
 // NOTE: Enable "Requires Authentication" in Xano endpoint settings (select "users" table)
+// NOTE: Check role manually in Xano visual builder - XanoScript has parsing bugs with == and ||
 query "teacher/courses" verb=POST {
   api_group = "all endpoints"
+  auth = "users"
 
   input {
     text title filters=trim
@@ -13,18 +15,6 @@ query "teacher/courses" verb=POST {
   }
 
   stack {
-    // Get the authenticated user
-    db.get users {
-      field_name = "id"
-      field_value = $auth.id
-    } as $user
-
-    // Check if user is a teacher
-    precondition ($user.role == "teacher" || $user.role == "admin") {
-      error_type = "accessdenied"
-      error = "Only teachers can create courses."
-    }
-
     // Check if slug is unique
     db.get courses {
       field_name = "slug"

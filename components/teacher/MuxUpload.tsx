@@ -4,7 +4,7 @@ import { useState, useCallback } from "react";
 import { Upload, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/xano/auth-context";
-import { createMuxUploadUrl, getMuxAssetStatus } from "@/lib/xano/client";
+import { createMuxUploadUrl, getMuxUploadStatus, getMuxAssetStatus } from "@/lib/xano/client";
 
 interface MuxUploadProps {
   onUploadComplete: (playbackId: string, duration: number) => void;
@@ -18,7 +18,7 @@ export function MuxUpload({ onUploadComplete, onError }: MuxUploadProps) {
   const [status, setStatus] = useState<UploadStatus>("idle");
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
-  const [assetId, setAssetId] = useState<string | null>(null);
+  const [uploadId, setUploadId] = useState<string | null>(null);
 
   const handleFileSelect = useCallback(
     async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,11 +45,16 @@ export function MuxUpload({ onUploadComplete, onError }: MuxUploadProps) {
 
       try {
         // Get upload URL from Xano/MUX
-        const { upload_url, asset_id } = await createMuxUploadUrl(
+        const { upload_url, upload_id } = await createMuxUploadUrl(
           authToken,
           window.location.origin
         );
-        setAssetId(asset_id);
+        
+        if (!upload_url || !upload_id) {
+          throw new Error("Invalid response from upload URL endpoint");
+        }
+        
+        setUploadId(upload_id);
         setStatus("uploading");
 
         // Upload file directly to MUX
@@ -65,8 +70,8 @@ export function MuxUpload({ onUploadComplete, onError }: MuxUploadProps) {
         xhr.addEventListener("load", async () => {
           if (xhr.status >= 200 && xhr.status < 300) {
             setStatus("processing");
-            // Poll for asset status
-            await pollAssetStatus(asset_id);
+            // Poll for upload status to get asset_id, then poll asset status
+            await pollUploadStatus(upload_id);
           } else {
             throw new Error("Upload failed");
           }
@@ -91,6 +96,52 @@ export function MuxUpload({ onUploadComplete, onError }: MuxUploadProps) {
     [authToken, onError]
   );
 
+  // Poll upload status to get asset_id
+  const pollUploadStatus = useCallback(
+    async (uploadId: string) => {
+      if (!authToken) return;
+
+      const maxAttempts = 30; // 2.5 minutes max for upload processing
+      let attempts = 0;
+
+      const checkUpload = async () => {
+        try {
+          const upload = await getMuxUploadStatus(authToken, uploadId);
+          
+          if (upload.status === "asset_created" && upload.asset_id) {
+            // Now poll for asset status
+            await pollAssetStatus(upload.asset_id);
+            return;
+          }
+
+          if (upload.status === "errored" || upload.status === "cancelled" || upload.status === "timed_out") {
+            setStatus("error");
+            setError("Upload processing failed");
+            onError?.("Upload processing failed");
+            return;
+          }
+
+          attempts++;
+          if (attempts < maxAttempts) {
+            setTimeout(checkUpload, 5000); // Check every 5 seconds
+          } else {
+            setStatus("error");
+            setError("Upload processing timeout. Please check later.");
+            onError?.("Upload processing timeout");
+          }
+        } catch (err) {
+          setStatus("error");
+          setError("Failed to check upload status");
+          onError?.("Failed to check upload status");
+        }
+      };
+
+      await checkUpload();
+    },
+    [authToken, onError]
+  );
+
+  // Poll asset status to get playback_id and duration
   const pollAssetStatus = useCallback(
     async (assetId: string) => {
       if (!authToken) return;
@@ -139,7 +190,7 @@ export function MuxUpload({ onUploadComplete, onError }: MuxUploadProps) {
     setStatus("idle");
     setProgress(0);
     setError(null);
-    setAssetId(null);
+    setUploadId(null);
   };
 
   return (

@@ -81,6 +81,15 @@ export default function CourseEditorPage() {
       }
       
       const data = await response.json();
+      
+      // Transform data: nest lessons inside their respective modules
+      if (data.modules && data.lessons) {
+        data.modules = data.modules.map((module: Module) => ({
+          ...module,
+          lessons: data.lessons.filter((lesson: Lesson) => lesson.module === module.id),
+        }));
+      }
+      
       setCourse(data);
     } catch (error) {
       console.error("Error fetching course:", error);
