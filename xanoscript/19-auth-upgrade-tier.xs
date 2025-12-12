@@ -32,11 +32,15 @@ query "auth/upgrade-tier" verb=POST {
       error = "You are already at the highest tier."
     }
 
-    // Prevent "upgrading" to pro if already pro
-    precondition (!($user.tier == "pro" && $input.tier == "pro")) {
+    // Prevent "upgrading" to same tier
+    precondition ($user.tier != $input.tier) {
       error_type = "inputerror"
-      error = "You are already on the Pro tier."
+      error = "You are already on the " + $input.tier + " tier."
     }
+
+    // Prevent downgrading (pro trying to go to free, ultra trying to go to pro)
+    // This is handled implicitly since we only allow "pro" or "ultra" as input
+    // and we already check for same-tier above
 
     // Update user tier
     db.edit users {

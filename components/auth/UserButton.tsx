@@ -93,13 +93,24 @@ export function UserButton() {
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link
-            href="/pricing"
+            href="/settings"
             className="flex items-center gap-2 text-zinc-300 hover:text-white cursor-pointer"
           >
             <Settings className="w-4 h-4" />
-            {user.tier === "ultra" ? "Account" : "Upgrade"}
+            Settings
           </Link>
         </DropdownMenuItem>
+        {user.tier !== "ultra" && (
+          <DropdownMenuItem asChild>
+            <Link
+              href="/pricing"
+              className="flex items-center gap-2 text-zinc-300 hover:text-white cursor-pointer"
+            >
+              <Crown className="w-4 h-4" />
+              Upgrade
+            </Link>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuSeparator className="bg-zinc-800" />
         <DropdownMenuItem
           onClick={logout}

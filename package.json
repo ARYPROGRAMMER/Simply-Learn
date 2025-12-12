@@ -13,6 +13,7 @@
   "dependencies": {
     "@ai-sdk/google": "^1.2.0",
     "@ai-sdk/react": "3.0.0-beta.128",
+    "@google/genai": "^1.33.0",
     "@mux/mux-node": "^12.8.0",
     "@mux/mux-player-react": "^3.2.0",
     "@mux/mux-uploader-react": "^1.4.0",
