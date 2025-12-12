@@ -15,9 +15,11 @@ import {
   Trophy,
   Sparkles,
   LayoutDashboard,
+  Zap,
 } from "lucide-react";
 import { getFeaturedCourses, getPlatformStats } from "@/lib/xano/client";
 import { getServerUser } from "@/lib/xano/server-auth";
+import { HomeClient } from "./home-client";
 
 export default async function Home() {
   // Fetch featured courses, stats, and check auth status

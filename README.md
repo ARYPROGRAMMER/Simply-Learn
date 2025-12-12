@@ -41,7 +41,7 @@ A modern Learning Management System with role-based access (students & teachers)
 | **React 19** | UI library |
 | **Xano** | Backend-as-a-Service (database, auth, API) |
 | **MUX** | Video hosting, streaming & direct uploads |
-| **Google Gemini** | AI tutor (`gemini-2.0-flash`) |
+| **Google Gemini** | AI tutor (`gemini-2.5-flash`) |
 | **Tailwind CSS 4** | Styling |
 
 ---

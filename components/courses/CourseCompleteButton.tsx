@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { toggleCourseCompletion } from "@/lib/actions";
 
 interface CourseCompleteButtonProps {
-  courseId: string;
+  courseId: number;
   courseSlug: string;
   isCompleted: boolean;
   completedLessons: number;

@@ -66,9 +66,13 @@ export default async function CoursePage({ params }: CoursePageProps) {
     thumbnail: course.image_url && typeof course.image_url === 'string'
       ? { asset: { _id: "", url: course.image_url } }
       : null,
-    category: course.category && typeof course.category === 'object' && !isEmptyObject(course.category) && 'id' in course.category && course.category.id
-      ? { _id: String(course.category.id), title: safeString(course.category.title) }
-      : null,
+    category: (() => {
+      const cat = course.category as { id?: number; title?: string } | null;
+      if (cat && typeof cat === 'object' && !isEmptyObject(cat) && cat.id) {
+        return { _id: String(cat.id), title: safeString(cat.title) };
+      }
+      return null;
+    })(),
     modules: modulesWithLessons.map((m) => ({
       _id: String(m.id),
       title: safeString(m.title) || "Untitled Module",

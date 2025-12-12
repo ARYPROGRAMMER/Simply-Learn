@@ -24,21 +24,8 @@ export default async function LessonPage({ params }: LessonPageProps) {
     notFound();
   }
 
-  // Get all lessons from course.all_lessons and nest them into modules
-  const allLessons = lesson.course?.all_lessons || [];
-  const modulesWithLessons = (lesson.course?.modules || []).map((m: { id: number; title: string; order_index: number }) => ({
-    ...m,
-    lessons: allLessons.filter((l: { module: number }) => l.module === m.id),
-  }));
-
-  // Build the lesson with context in the format expected by LessonPageContent
-  const lessonWithContext = {
-    ...lesson,
-    course: lesson.course ? {
-      ...lesson.course,
-      modules: modulesWithLessons,
-    } : undefined,
-  };
+  // The course already has modules with nested lessons from Xano API
+  // Just use them directly
 
   // Get completed lesson IDs (for now empty, would need progress API)
   const completedLessonIds: number[] = [];
@@ -72,7 +59,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
       {/* Main Content */}
       <main className="relative z-10 px-6 lg:px-12 py-8 max-w-7xl mx-auto">
         <LessonPageContent 
-          lesson={lessonWithContext} 
+          lesson={lesson} 
           userId={user?.id || null} 
           completedLessonIds={completedLessonIds}
         />

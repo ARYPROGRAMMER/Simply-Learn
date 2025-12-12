@@ -3,7 +3,7 @@ import { ToolLoopAgent } from "ai";
 import { searchCoursesTool } from "./tools/search-courses";
 
 export const tutorAgent = new ToolLoopAgent({
-  model: google("gemini-2.0-flash"),
+  model: google("gemini-2.5-flash") as any,
   instructions: `You are a knowledgeable learning assistant for Simply Learn. You help Ultra members by:
 1. Finding relevant courses, modules, and lessons
 2. Answering questions based on our lesson content

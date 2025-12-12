@@ -9,12 +9,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import type { Module, Lesson } from "@/lib/xano/types";
+import type { ModuleWithLessons, Lesson } from "@/lib/xano/types";
 
 interface LessonSidebarProps {
   courseSlug: string;
   courseTitle: string | null;
-  modules: Module[] | null;
+  modules: ModuleWithLessons[] | null;
   currentLessonId: number;
   completedLessonIds?: number[];
 }
