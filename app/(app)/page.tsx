@@ -1,5 +1,5 @@
+import { redirect } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
 import { CourseCard } from "@/components/courses";
@@ -10,19 +10,23 @@ import {
   Rocket,
   Crown,
   CheckCircle2,
-  LayoutDashboard,
 } from "lucide-react";
 import { getFeaturedCourses, getPlatformStats } from "@/lib/xano/client";
 import { getServerUser } from "@/lib/xano/server-auth";
+import Image from "next/image";
 
 export default async function Home() {
-  const [courses, stats, user] = await Promise.all([
+  const user = await getServerUser();
+
+  // Redirect logged-in users to dashboard
+  if (user) {
+    redirect("/dashboard");
+  }
+
+  const [courses, stats] = await Promise.all([
     getFeaturedCourses().catch(() => []),
     getPlatformStats().catch(() => ({ course_count: 0, lesson_count: 0 })),
-    getServerUser(),
   ]);
-
-  const isSignedIn = !!user;
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -48,29 +52,16 @@ export default async function Home() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4">
-              {isSignedIn ? (
-                <Link href="/dashboard">
-                  <Button
-                    size="lg"
-                    className="btn-shiny bg-white text-black hover:bg-zinc-100 px-8 py-6 text-lg font-semibold rounded-xl shadow-xl shadow-white/10 hover:shadow-white/20 transition-all duration-300"
-                  >
-                    <LayoutDashboard className="mr-2 w-5 h-5" />
-                    Go to Dashboard
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Button>
-                </Link>
-              ) : (
-                <Link href="/auth/signup">
-                  <Button
-                    size="lg"
-                    className="btn-shiny bg-white text-black hover:bg-zinc-100 px-8 py-6 text-lg font-semibold rounded-xl shadow-xl shadow-white/10 hover:shadow-white/20 transition-all duration-300"
-                  >
-                    <Play className="mr-2 w-5 h-5" />
-                    Get Started Free
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Button>
-                </Link>
-              )}
+              <Link href="/auth/signup">
+                <Button
+                  size="lg"
+                  className="btn-shiny bg-white text-black hover:bg-zinc-100 px-8 py-6 text-lg font-semibold rounded-xl shadow-xl shadow-white/10 hover:shadow-white/20 transition-all duration-300"
+                >
+                  <Play className="mr-2 w-5 h-5" />
+                  Get Started Free
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Button>
+              </Link>
             </div>
 
             {/* Stats */}
@@ -96,15 +87,13 @@ export default async function Home() {
                 <h2 className="text-3xl md:text-4xl font-bold mb-3">Featured Courses</h2>
                 <p className="text-zinc-500">Start your learning journey</p>
               </div>
-              {isSignedIn && (
-                <Link
-                  href="/dashboard/courses"
-                  className="hidden md:flex items-center gap-2 text-zinc-400 hover:text-white transition-colors"
-                >
-                  View all
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              )}
+              <Link
+                href="/auth/signup"
+                className="hidden md:flex items-center gap-2 text-zinc-400 hover:text-white transition-colors"
+              >
+                Sign up to browse all
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -181,7 +170,7 @@ export default async function Home() {
                     Priority support
                   </li>
                 </ul>
-                <Link href={isSignedIn ? "/pricing" : "/auth/login?redirect=/pricing"}>
+                <Link href="/auth/signup">
                   <Button className="w-full btn-shiny bg-white text-black hover:bg-zinc-100 font-semibold shadow-lg shadow-white/10 hover:shadow-white/20">
                     Upgrade to Pro
                   </Button>
@@ -209,7 +198,7 @@ export default async function Home() {
                     1-on-1 mentorship
                   </li>
                 </ul>
-                <Link href={isSignedIn ? "/pricing" : "/auth/login?redirect=/pricing"}>
+                <Link href="/auth/signup">
                   <Button className="w-full btn-shiny bg-gradient-to-r from-amber-400 to-amber-500 text-black font-semibold hover:from-amber-300 hover:to-amber-400 shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30">
                     Go Ultra
                   </Button>

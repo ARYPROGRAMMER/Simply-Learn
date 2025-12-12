@@ -26,7 +26,7 @@ export function Header() {
   const pathname = usePathname();
   const { user, isAuthenticated, isLoading } = useAuth();
 
-  const isTeacher = user?.role === "teacher" || user?.role === "admin";
+  const isTeacher = user?.role === "teacher";
 
   const loggedInLinks = [
     { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },

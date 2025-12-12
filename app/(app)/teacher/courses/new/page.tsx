@@ -70,7 +70,7 @@ export default function NewCoursePage() {
   };
 
   // Check if user is teacher
-  if (user && user.role !== "teacher" && user.role !== "admin") {
+  if (user && user.role !== "teacher") {
     return (
       <div className="min-h-screen bg-[#09090b] text-white flex items-center justify-center">
         <div className="text-center">

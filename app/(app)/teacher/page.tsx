@@ -20,7 +20,7 @@ export default async function TeacherDashboardPage() {
     user = await getCurrentUser(authToken);
     
     // Check if user is a teacher
-    if (user.role !== "teacher" && user.role !== "admin") {
+    if (user.role !== "teacher") {
       redirect("/dashboard");
     }
 

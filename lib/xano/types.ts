@@ -1,7 +1,7 @@
 // Xano API Types
 
 export type Tier = "free" | "pro" | "ultra";
-export type Role = "student" | "teacher" | "admin";
+export type Role = "student" | "teacher";
 
 export interface User {
   id: number;

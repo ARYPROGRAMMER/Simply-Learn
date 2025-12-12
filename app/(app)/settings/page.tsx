@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft, Save, Loader2, User, Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -17,13 +17,13 @@ export default function SettingsPage() {
   const [error, setError] = useState<string | null>(null);
 
   const [formData, setFormData] = useState({
-    first_name: user?.first_name || "",
-    last_name: user?.last_name || "",
-    avatar_url: user?.avatar_url || "",
+    first_name: "",
+    last_name: "",
+    avatar_url: "",
   });
 
   // Update form when user loads
-  useState(() => {
+  useEffect(() => {
     if (user) {
       setFormData({
         first_name: user.first_name || "",
@@ -31,7 +31,7 @@ export default function SettingsPage() {
         avatar_url: user.avatar_url || "",
       });
     }
-  });
+  }, [user]);
 
   if (authLoading) {
     return (
