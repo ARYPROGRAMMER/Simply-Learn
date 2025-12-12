@@ -31,7 +31,7 @@ export function UserButton() {
       <>
         <Button
           onClick={() => setShowAuthModal(true)}
-          className="bg-violet-600 hover:bg-violet-700 text-white"
+          className="bg-white hover:bg-zinc-200 text-black"
         >
           Sign In
         </Button>
@@ -47,8 +47,8 @@ export function UserButton() {
 
   const tierColors = {
     free: "text-zinc-400",
-    pro: "text-violet-400",
-    ultra: "text-amber-400",
+    pro: "text-zinc-300",
+    ultra: "text-white",
   };
 
   return (
@@ -57,7 +57,7 @@ export function UserButton() {
         <Button variant="ghost" className="relative h-9 w-9 rounded-full">
           <Avatar className="h-9 w-9">
             <AvatarImage src={user.avatar_url || undefined} alt={user.email} />
-            <AvatarFallback className="bg-violet-600 text-white">
+            <AvatarFallback className="bg-zinc-700 text-white">
               {initials}
             </AvatarFallback>
           </Avatar>

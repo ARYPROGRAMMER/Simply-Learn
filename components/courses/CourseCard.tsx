@@ -64,10 +64,10 @@ export function CourseCard({
       className="h-full"
     >
       <Link href={linkHref} className="group block h-full">
-        <div className="relative h-full rounded-2xl bg-zinc-900/50 backdrop-blur-xl border border-white/5 overflow-hidden transition-all duration-300 hover:border-violet-500/30 hover:shadow-xl hover:shadow-violet-500/10">
+        <div className="relative h-full rounded-2xl bg-zinc-900/50 backdrop-blur-xl border border-white/5 overflow-hidden transition-all duration-300 hover:border-zinc-500/30 hover:shadow-xl hover:shadow-zinc-500/10">
           {/* Animated gradient border on hover */}
           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            <div className="absolute -inset-px rounded-2xl bg-linear-to-r from-violet-600/20 via-fuchsia-600/20 to-violet-600/20 animate-gradient" style={{ backgroundSize: "200% 200%" }} />
+            <div className="absolute -inset-px rounded-2xl bg-linear-to-r from-zinc-500/20 via-zinc-400/20 to-zinc-500/20 animate-gradient" style={{ backgroundSize: "200% 200%" }} />
           </div>
         
           {/* Course thumbnail/header */}
@@ -147,12 +147,12 @@ export function CourseCard({
 
             <div className="flex items-center gap-3 text-sm text-zinc-500">
               <span className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/5">
-                <Layers className="w-3.5 h-3.5 text-violet-400" />
+                <Layers className="w-3.5 h-3.5 text-zinc-400" />
                 <span className="text-zinc-300 font-medium">{moduleCount ?? 0}</span>
                 <span className="text-zinc-500">modules</span>
               </span>
               <span className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/5">
-                <Play className="w-3.5 h-3.5 text-fuchsia-400" />
+                <Play className="w-3.5 h-3.5 text-zinc-400" />
                 <span className="text-zinc-300 font-medium">{lessonCount ?? 0}</span>
                 <span className="text-zinc-500">lessons</span>
               </span>
@@ -166,7 +166,7 @@ export function CourseCard({
                     <Clock className="w-3.5 h-3.5" />
                     {completed}/{totalLessons} completed
                   </span>
-                  <span className="text-violet-400 font-semibold">
+                  <span className="text-zinc-300 font-semibold">
                     {Math.round(progressPercent)}%
                   </span>
                 </div>
@@ -175,7 +175,7 @@ export function CourseCard({
                     initial={{ width: 0 }}
                     animate={{ width: `${progressPercent}%` }}
                     transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute inset-y-0 left-0 bg-linear-to-r from-violet-500 to-fuchsia-500 rounded-full"
+                    className="absolute inset-y-0 left-0 bg-linear-to-r from-zinc-400 to-zinc-300 rounded-full"
                   />
                 </div>
               </div>

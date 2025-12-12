@@ -38,7 +38,7 @@ const plans = [
     tier: "pro" as const,
     icon: Rocket,
     description: "For serious learners",
-    color: "violet",
+    color: "gray",
     popular: true,
     features: [
       "Everything in Free",
@@ -95,13 +95,13 @@ export default function PricingPage() {
     <div className="min-h-screen bg-[#09090b] text-white overflow-hidden">
       {/* Animated gradient mesh background */}
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-violet-600/15 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-zinc-600/15 rounded-full blur-[120px] animate-pulse" />
         <div
-          className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-fuchsia-600/10 rounded-full blur-[100px] animate-pulse"
+          className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-zinc-500/10 rounded-full blur-[100px] animate-pulse"
           style={{ animationDelay: "1s" }}
         />
         <div
-          className="absolute top-[40%] right-[20%] w-[400px] h-[400px] bg-cyan-500/10 rounded-full blur-[80px] animate-pulse"
+          className="absolute top-[40%] right-[20%] w-[400px] h-[400px] bg-zinc-400/10 rounded-full blur-[80px] animate-pulse"
           style={{ animationDelay: "2s" }}
         />
       </div>
@@ -121,15 +121,15 @@ export default function PricingPage() {
       <main className="relative z-10 px-6 lg:px-12 py-12 max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 border border-violet-500/20 mb-6">
-            <Sparkles className="w-4 h-4 text-violet-400" />
-            <span className="text-sm text-violet-300">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-500/10 border border-zinc-500/20 mb-6">
+            <Sparkles className="w-4 h-4 text-zinc-400" />
+            <span className="text-sm text-zinc-300">
               Simple, transparent pricing
             </span>
           </div>
           <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-6">
             Choose your{" "}
-            <span className="bg-linear-to-r from-violet-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-zinc-300 via-white to-zinc-300 bg-clip-text text-transparent">
               learning path
             </span>
           </h1>
@@ -145,52 +145,50 @@ export default function PricingPage() {
           {plans.map((plan) => {
             const Icon = plan.icon;
             const isCurrentPlan = currentTier === plan.tier;
-            const canUpgrade =
-              plan.tier !== "free" &&
-              (currentTier === "free" ||
-                (currentTier === "pro" && plan.tier === "ultra"));
+            
+            // Proper tier hierarchy: free < pro < ultra
+            const tierRank = { free: 0, pro: 1, ultra: 2 };
+            const currentRank = tierRank[currentTier as keyof typeof tierRank] || 0;
+            const planRank = tierRank[plan.tier as keyof typeof tierRank];
+            
+            // Can only upgrade to higher tiers, not downgrade
+            const canUpgrade = isAuthenticated && planRank > currentRank;
+            const isLowerTier = planRank < currentRank;
 
             const borderColor =
-              plan.color === "violet"
-                ? "border-violet-500/30 hover:border-violet-500/50"
+              plan.color === "gray"
+                ? "border-white/20 hover:border-white/40"
                 : plan.color === "amber"
                   ? "border-amber-500/30 hover:border-amber-500/50"
-                  : "border-zinc-800 hover:border-zinc-700";
-
-            const bgGradient =
-              plan.color === "violet"
-                ? "from-violet-500/10"
-                : plan.color === "amber"
-                  ? "from-amber-500/10"
-                  : "from-zinc-800/50";
+                  : "border-white/10 hover:border-white/20";
 
             const iconBg =
-              plan.color === "violet"
-                ? "bg-violet-600"
+              plan.color === "gray"
+                ? "bg-white"
                 : plan.color === "amber"
-                  ? "bg-amber-500"
-                  : "bg-zinc-800";
+                  ? "bg-gradient-to-br from-amber-400 to-amber-600"
+                  : "bg-white/5 border border-white/10";
 
             const checkColor =
-              plan.color === "violet"
-                ? "text-violet-400"
+              plan.color === "gray"
+                ? "text-white/60"
                 : plan.color === "amber"
                   ? "text-amber-400"
-                  : "text-green-500";
+                  : "text-white/40";
 
             return (
               <div
                 key={plan.tier}
-                className={`relative p-7 rounded-3xl glass border ${borderColor} transition-all duration-300 card-hover ${plan.popular ? 'ring-2 ring-violet-500/50 shadow-xl shadow-violet-500/10' : ''}`}
+                className={`relative p-7 rounded-3xl bg-black border ${borderColor} transition-all duration-300 card-hover ${plan.popular ? 'ring-1 ring-white/30 shadow-xl shadow-white/5' : ''} ${plan.color === 'amber' ? 'glow-gold' : ''}`}
               >
                 {plan.popular && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-linear-to-r from-violet-500 to-fuchsia-500 text-xs font-bold shadow-lg shadow-violet-500/30">
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-white text-black text-xs font-bold shadow-lg shadow-white/20">
                     ⚡ Most Popular
                   </div>
                 )}
 
-                <div className={`w-14 h-14 rounded-2xl ${iconBg} flex items-center justify-center mb-5 shadow-lg ${plan.color === 'violet' ? 'shadow-violet-500/30' : plan.color === 'amber' ? 'shadow-amber-500/30' : 'shadow-zinc-700/30'}`}>
-                  <Icon className="w-7 h-7 text-white" />
+                <div className={`w-14 h-14 rounded-2xl ${iconBg} flex items-center justify-center mb-5 shadow-lg ${plan.color === 'gray' ? 'shadow-white/10' : plan.color === 'amber' ? 'shadow-amber-500/30' : 'shadow-none'}`}>
+                  <Icon className={`w-7 h-7 ${plan.color === 'zinc' ? 'text-zinc-400' : 'text-black'}`} />
                 </div>
 
                 <h3 className="text-2xl font-bold mb-1">{plan.name}</h3>
@@ -214,17 +212,17 @@ export default function PricingPage() {
                 </ul>
 
                 {isCurrentPlan ? (
-                  <Button className="w-full rounded-xl py-5 glass border border-white/10" variant="outline" disabled>
+                  <Button className="w-full rounded-xl py-5 bg-white/5 border border-white/20 text-white cursor-default" variant="outline" disabled>
                     ✓ Current Plan
                   </Button>
                 ) : canUpgrade ? (
                   <Button
-                    className={`w-full rounded-xl py-5 font-semibold transition-all duration-300 ${
-                      plan.color === "violet"
-                        ? "bg-linear-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40"
+                    className={`w-full rounded-xl py-5 font-semibold transition-all duration-300 btn-shiny ${
+                      plan.color === "gray"
+                        ? "bg-white text-black hover:bg-zinc-100 shadow-lg shadow-white/10 hover:shadow-white/20"
                         : plan.color === "amber"
-                          ? "bg-linear-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40"
-                          : ""
+                          ? "bg-gradient-to-r from-amber-400 to-amber-500 text-black hover:from-amber-300 hover:to-amber-400 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40"
+                          : "bg-white/10 hover:bg-white/20"
                     }`}
                     onClick={() => handleUpgrade(plan.tier as "pro" | "ultra")}
                     disabled={upgrading === plan.tier}
@@ -238,8 +236,12 @@ export default function PricingPage() {
                       `Upgrade to ${plan.name}`
                     )}
                   </Button>
-                ) : plan.tier === "free" ? (
-                  <Button className="w-full rounded-xl py-5 glass border border-white/10 hover:border-white/20" variant="outline" asChild>
+                ) : isLowerTier ? (
+                  <Button className="w-full rounded-xl py-5 bg-white/5 border border-white/10 text-zinc-500 cursor-not-allowed" variant="outline" disabled>
+                    Included in your plan
+                  </Button>
+                ) : plan.tier === "free" && !isAuthenticated ? (
+                  <Button className="w-full rounded-xl py-5 btn-shiny border-white/20 hover:border-white/40 hover:bg-white/5" variant="outline" asChild>
                     <Link href="/auth/signup">Get Started Free</Link>
                   </Button>
                 ) : null}

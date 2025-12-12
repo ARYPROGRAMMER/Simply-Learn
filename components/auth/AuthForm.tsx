@@ -99,19 +99,19 @@ export function AuthForm({ mode, onSuccess, redirectTo = "/dashboard" }: AuthFor
                 whileTap={{ scale: 0.98 }}
                 className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${
                   formData.role === "student"
-                    ? "border-violet-500/50 bg-violet-500/10 ring-1 ring-violet-500/30"
+                    ? "border-white/30 bg-white/10 ring-1 ring-white/20"
                     : "border-white/10 hover:border-white/20 bg-white/5"
                 }`}
               >
                 <RadioGroupItem value="student" id="student" className="sr-only" />
-                <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${formData.role === "student" ? "bg-violet-500/20" : "bg-white/5"}`}>
-                  <BookOpen className={`w-5 h-5 ${formData.role === "student" ? "text-violet-400" : "text-zinc-400"}`} />
+                <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${formData.role === "student" ? "bg-white/10" : "bg-white/5"}`}>
+                  <BookOpen className={`w-5 h-5 ${formData.role === "student" ? "text-white" : "text-zinc-400"}`} />
                 </div>
                 <div>
                   <p className={`font-medium ${formData.role === "student" ? "text-white" : "text-zinc-300"}`}>
                     Learn
                   </p>
-                  <p className={`text-xs ${formData.role === "student" ? "text-violet-300/70" : "text-zinc-500"}`}>Take courses</p>
+                  <p className={`text-xs ${formData.role === "student" ? "text-zinc-300" : "text-zinc-500"}`}>Take courses</p>
                 </div>
               </motion.label>
               <motion.label
@@ -151,7 +151,7 @@ export function AuthForm({ mode, onSuccess, redirectTo = "/dashboard" }: AuthFor
                   onChange={(e) =>
                     setFormData({ ...formData, firstName: e.target.value })
                   }
-                  className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-zinc-500 focus:border-violet-500/50 focus:ring-violet-500/20 rounded-xl h-12"
+                  className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-zinc-500 focus:border-white/30 focus:ring-white/10 rounded-xl h-12"
                   placeholder="John"
                 />
               </div>
@@ -169,7 +169,7 @@ export function AuthForm({ mode, onSuccess, redirectTo = "/dashboard" }: AuthFor
                   onChange={(e) =>
                     setFormData({ ...formData, lastName: e.target.value })
                   }
-                  className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-zinc-500 focus:border-violet-500/50 focus:ring-violet-500/20 rounded-xl h-12"
+                  className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-zinc-500 focus:border-white/30 focus:ring-white/10 rounded-xl h-12"
                   placeholder="Doe"
                 />
               </div>
@@ -189,7 +189,7 @@ export function AuthForm({ mode, onSuccess, redirectTo = "/dashboard" }: AuthFor
             type="email"
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-zinc-500 focus:border-violet-500/50 focus:ring-violet-500/20 rounded-xl h-12"
+            className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-zinc-500 focus:border-white/30 focus:ring-white/10 rounded-xl h-12"
             placeholder="john@example.com"
             required
           />
@@ -209,7 +209,7 @@ export function AuthForm({ mode, onSuccess, redirectTo = "/dashboard" }: AuthFor
             onChange={(e) =>
               setFormData({ ...formData, password: e.target.value })
             }
-            className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-zinc-500 focus:border-violet-500/50 focus:ring-violet-500/20 rounded-xl h-12"
+            className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-zinc-500 focus:border-white/30 focus:ring-white/10 rounded-xl h-12"
             placeholder="••••••••"
             required
             minLength={6}
@@ -223,7 +223,7 @@ export function AuthForm({ mode, onSuccess, redirectTo = "/dashboard" }: AuthFor
       >
         <Button
           type="submit"
-          className="w-full h-12 bg-linear-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-semibold rounded-xl shadow-lg shadow-violet-500/25 transition-all"
+          className="w-full h-12 btn-shiny bg-white hover:bg-zinc-100 text-black font-semibold rounded-xl shadow-lg shadow-white/20 hover:shadow-white/30 transition-all"
           disabled={isLoading}
         >
           {isLoading ? (

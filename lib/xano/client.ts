@@ -116,7 +116,7 @@ export async function upgradeTier(
   tier: "pro" | "ultra"
 ): Promise<User> {
   return fetchApi<User>(
-    "/auth/upgrade",
+    "/auth/upgrade-tier",
     {
       method: "POST",
       body: JSON.stringify({ tier }),

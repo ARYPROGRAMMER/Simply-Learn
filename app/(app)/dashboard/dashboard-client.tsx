@@ -79,7 +79,7 @@ export function DashboardClient({
           <motion.div variants={itemVariants}>
             <Link
               href="/dashboard/courses"
-              className="group block h-full p-6 rounded-2xl bg-zinc-900/50 backdrop-blur-xl border border-violet-500/20 hover:border-violet-500/40 transition-all duration-300 hover:-translate-y-1"
+              className="group block h-full p-6 rounded-2xl bg-zinc-900/50 backdrop-blur-xl border border-zinc-500/20 hover:border-zinc-500/40 transition-all duration-300 hover:-translate-y-1"
             >
               <div className="flex items-center justify-between mb-4">
                 <motion.div
@@ -88,7 +88,7 @@ export function DashboardClient({
                 >
                   <BookOpen className="w-6 h-6 text-white" />
                 </motion.div>
-                <ArrowRight className="w-5 h-5 text-zinc-500 group-hover:text-violet-400 group-hover:translate-x-1 transition-all duration-300" />
+                <ArrowRight className="w-5 h-5 text-zinc-500 group-hover:text-white group-hover:translate-x-1 transition-all duration-300" />
               </div>
               <h3 className="text-xl font-bold mb-1 text-white group-hover:text-gradient transition-all">
                 Browse Courses
@@ -102,18 +102,18 @@ export function DashboardClient({
           <motion.div variants={itemVariants}>
             <Link
               href="/dashboard/courses"
-              className="group block h-full p-6 rounded-2xl bg-zinc-900/50 backdrop-blur-xl border border-fuchsia-500/20 hover:border-fuchsia-500/40 transition-all duration-300 hover:-translate-y-1"
+              className="group block h-full p-6 rounded-2xl bg-zinc-900/50 backdrop-blur-xl border border-zinc-500/20 hover:border-zinc-500/40 transition-all duration-300 hover:-translate-y-1"
             >
               <div className="flex items-center justify-between mb-4">
                 <motion.div
                   whileHover={{ rotate: -5, scale: 1.05 }}
-                  className="w-14 h-14 rounded-2xl bg-linear-to-br from-fuchsia-600 to-fuchsia-700 flex items-center justify-center shadow-lg shadow-fuchsia-500/30"
+                  className="w-14 h-14 rounded-2xl bg-linear-to-br from-zinc-600 to-zinc-700 flex items-center justify-center shadow-lg shadow-zinc-500/30"
                 >
                   <Target className="w-6 h-6 text-white" />
                 </motion.div>
-                <ArrowRight className="w-5 h-5 text-zinc-500 group-hover:text-fuchsia-400 group-hover:translate-x-1 transition-all duration-300" />
+                <ArrowRight className="w-5 h-5 text-zinc-500 group-hover:text-white group-hover:translate-x-1 transition-all duration-300" />
               </div>
-              <h3 className="text-xl font-bold mb-1 text-white group-hover:text-fuchsia-400 transition-all">
+              <h3 className="text-xl font-bold mb-1 text-white group-hover:text-zinc-300 transition-all">
                 Track Progress
               </h3>
               <p className="text-zinc-400 text-sm">See how far you&apos;ve come</p>
@@ -182,7 +182,7 @@ export function DashboardClient({
             </div>
             <Link
               href="/dashboard/courses"
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 backdrop-blur-xl border border-white/5 text-violet-400 hover:text-violet-300 hover:border-violet-500/30 text-sm font-medium transition-all hover:-translate-y-0.5"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 backdrop-blur-xl border border-white/5 text-zinc-300 hover:text-white hover:border-zinc-500/30 text-sm font-medium transition-all hover:-translate-y-0.5"
             >
               View all
               <ArrowRight className="w-4 h-4" />

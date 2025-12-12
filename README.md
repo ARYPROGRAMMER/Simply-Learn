@@ -1,5 +1,7 @@
 # Simply Learn - AI-Powered Learning Management System
 
+![Simply Learn](public/logo-black.svg)
+
 [![Next.js 16](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
 [![React 19](https://img.shields.io/badge/React-19-61DAFB?logo=react)](https://react.dev/)
 [![Xano](https://img.shields.io/badge/Xano-Backend-00DC82)](https://www.xano.com/)

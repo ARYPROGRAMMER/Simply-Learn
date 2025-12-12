@@ -206,7 +206,7 @@ export default function CourseEditorPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-[#09090b] text-white flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-violet-500" />
+        <Loader2 className="w-8 h-8 animate-spin text-zinc-500" />
       </div>
     );
   }
@@ -228,7 +228,7 @@ export default function CourseEditorPage() {
     <div className="min-h-screen bg-[#09090b] text-white">
       {/* Background */}
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-violet-600/10 rounded-full blur-[120px]" />
+        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-zinc-600/10 rounded-full blur-[120px]" />
       </div>
 
       <div className="relative z-10 container mx-auto px-4 py-8">
@@ -253,7 +253,7 @@ export default function CourseEditorPage() {
                     course.tier === "free"
                       ? "bg-zinc-700 text-zinc-200"
                       : course.tier === "pro"
-                      ? "bg-violet-500/20 text-violet-300"
+                      ? "bg-zinc-500/20 text-zinc-300"
                       : "bg-amber-500/20 text-amber-300"
                   }`}
                 >
@@ -277,7 +277,7 @@ export default function CourseEditorPage() {
             <h2 className="text-xl font-semibold">Course Content</h2>
             <Button
               onClick={() => setShowModuleForm(true)}
-              className="bg-violet-600 hover:bg-violet-500"
+              className="bg-zinc-100 hover:bg-white text-zinc-900"
             >
               <Plus className="w-4 h-4 mr-2" />
               Add Module
@@ -296,7 +296,7 @@ export default function CourseEditorPage() {
                     onChange={(e) => setModuleTitle(e.target.value)}
                     placeholder="e.g., Getting Started"
                     required
-                    className="bg-zinc-900/80 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-violet-500"
+                    className="bg-zinc-900/80 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-zinc-500"
                   />
                 </div>
                 <div className="space-y-2">
@@ -305,7 +305,7 @@ export default function CourseEditorPage() {
                     value={moduleDescription}
                     onChange={(e) => setModuleDescription(e.target.value)}
                     placeholder="What will students learn in this module?"
-                    className="bg-zinc-900/80 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-violet-500"
+                    className="bg-zinc-900/80 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-zinc-500"
                   />
                 </div>
                 <div className="flex gap-2">
@@ -318,7 +318,7 @@ export default function CourseEditorPage() {
                   </Button>
                   <Button
                     type="submit"
-                    className="bg-violet-600 hover:bg-violet-500"
+                    className="bg-zinc-100 hover:bg-white text-zinc-900"
                     disabled={isCreatingModule || !moduleTitle}
                   >
                     {isCreatingModule ? (
@@ -371,7 +371,7 @@ export default function CourseEditorPage() {
                             >
                               <div className="flex items-center gap-3">
                                 {lesson.mux_playback_id ? (
-                                  <Video className="w-4 h-4 text-violet-400" />
+                                  <Video className="w-4 h-4 text-zinc-400" />
                                 ) : (
                                   <FileText className="w-4 h-4 text-zinc-400" />
                                 )}
@@ -407,7 +407,7 @@ export default function CourseEditorPage() {
                                 }
                                 placeholder="e.g., Introduction to HTML"
                                 required
-                                className="bg-zinc-900/80 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-violet-500"
+                                className="bg-zinc-900/80 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-zinc-500"
                               />
                             </div>
 
@@ -418,7 +418,7 @@ export default function CourseEditorPage() {
                                 onChange={(e) => setLessonSlug(e.target.value)}
                                 placeholder="introduction-to-html"
                                 required
-                                className="bg-zinc-900/80 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-violet-500"
+                                className="bg-zinc-900/80 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-zinc-500"
                               />
                             </div>
 
@@ -430,7 +430,7 @@ export default function CourseEditorPage() {
                                   setLessonDescription(e.target.value)
                                 }
                                 placeholder="What will students learn?"
-                                className="bg-zinc-900/80 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-violet-500"
+                                className="bg-zinc-900/80 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-zinc-500"
                               />
                             </div>
 
@@ -456,7 +456,7 @@ export default function CourseEditorPage() {
                                 onChange={(e) => setLessonContent(e.target.value)}
                                 placeholder="Write your lesson content here..."
                                 rows={6}
-                                className="bg-zinc-900/80 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-violet-500"
+                                className="bg-zinc-900/80 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-zinc-500"
                               />
                             </div>
 
@@ -470,7 +470,7 @@ export default function CourseEditorPage() {
                               </Button>
                               <Button
                                 type="submit"
-                                className="bg-violet-600 hover:bg-violet-500"
+                                className="bg-zinc-100 hover:bg-white text-zinc-900"
                                 disabled={
                                   isCreatingLesson || !lessonTitle || !lessonSlug
                                 }
@@ -510,7 +510,7 @@ export default function CourseEditorPage() {
               </p>
               <Button
                 onClick={() => setShowModuleForm(true)}
-                className="bg-violet-600 hover:bg-violet-500"
+                className="bg-zinc-100 hover:bg-white text-zinc-900"
               >
                 <Plus className="w-4 h-4 mr-2" />
                 Add First Module

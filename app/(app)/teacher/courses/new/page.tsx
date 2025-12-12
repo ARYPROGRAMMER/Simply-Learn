@@ -88,7 +88,7 @@ export default function NewCoursePage() {
     <div className="min-h-screen bg-[#09090b] text-white">
       {/* Background */}
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-violet-600/10 rounded-full blur-[120px]" />
+        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-zinc-600/10 rounded-full blur-[120px]" />
       </div>
 
       <div className="relative z-10 container mx-auto px-4 py-8 max-w-2xl">
@@ -113,7 +113,7 @@ export default function NewCoursePage() {
                 onChange={(e) => handleTitleChange(e.target.value)}
                 placeholder="e.g., Introduction to Web Development"
                 required
-                className="bg-zinc-900/80 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-violet-500"
+                className="bg-zinc-900/80 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-zinc-500"
               />
             </div>
 
@@ -125,7 +125,7 @@ export default function NewCoursePage() {
                 onChange={(e) => setSlug(e.target.value)}
                 placeholder="introduction-to-web-development"
                 required
-                className="bg-zinc-900/80 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-violet-500"
+                className="bg-zinc-900/80 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-zinc-500"
               />
               <p className="text-xs text-zinc-400">
                 This will be used in the URL: /courses/{slug || "your-slug"}
@@ -141,7 +141,7 @@ export default function NewCoursePage() {
                 placeholder="Describe what students will learn in this course..."
                 required
                 rows={4}
-                className="bg-zinc-900/80 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-violet-500"
+                className="bg-zinc-900/80 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-zinc-500"
               />
             </div>
 
@@ -152,7 +152,7 @@ export default function NewCoursePage() {
                 value={imageUrl}
                 onChange={(e) => setImageUrl(e.target.value)}
                 placeholder="https://example.com/image.jpg"
-                className="bg-zinc-900/80 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-violet-500"
+                className="bg-zinc-900/80 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-zinc-500"
               />
             </div>
 
@@ -189,7 +189,7 @@ export default function NewCoursePage() {
               </Link>
               <Button
                 type="submit"
-                className="flex-1 bg-violet-600 hover:bg-violet-500"
+                className="flex-1 bg-zinc-100 hover:bg-white text-zinc-900"
                 disabled={isLoading || !title || !slug || !description}
               >
                 {isLoading ? (

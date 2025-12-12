@@ -44,9 +44,9 @@ export default async function TeacherDashboardPage() {
     <div className="min-h-screen bg-[#09090b] text-white">
       {/* Background */}
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-violet-600/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-fuchsia-600/10 rounded-full blur-[100px]" />
-        <div className="absolute top-[30%] right-[10%] w-[300px] h-[300px] bg-cyan-500/5 rounded-full blur-[80px]" />
+        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-zinc-600/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-zinc-500/10 rounded-full blur-[100px]" />
+        <div className="absolute top-[30%] right-[10%] w-[300px] h-[300px] bg-zinc-400/5 rounded-full blur-[80px]" />
       </div>
 
       <div className="relative z-10 container mx-auto px-4 py-8 max-w-6xl">
@@ -54,8 +54,8 @@ export default async function TeacherDashboardPage() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <Sparkles className="w-5 h-5 text-violet-400" />
-              <span className="text-sm text-violet-400 font-medium">Teacher Portal</span>
+              <Sparkles className="w-5 h-5 text-zinc-400" />
+              <span className="text-sm text-zinc-400 font-medium">Teacher Portal</span>
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-2">Welcome back, {user.first_name || "Teacher"}!</h1>
             <p className="text-zinc-400">
@@ -63,7 +63,7 @@ export default async function TeacherDashboardPage() {
             </p>
           </div>
           <Link href="/teacher/courses/new">
-            <Button className="mt-4 md:mt-0 bg-violet-600 hover:bg-violet-500 shadow-lg shadow-violet-500/20 transition-all hover:shadow-violet-500/30 hover:scale-105">
+            <Button className="mt-4 md:mt-0 bg-zinc-100 hover:bg-white text-zinc-900 shadow-lg shadow-zinc-500/20 transition-all hover:shadow-zinc-500/30 hover:scale-105">
               <Plus className="w-4 h-4 mr-2" />
               Create Course
             </Button>
@@ -72,10 +72,10 @@ export default async function TeacherDashboardPage() {
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
-          <div className="p-6 rounded-2xl bg-zinc-900/60 border border-zinc-700/50 backdrop-blur-sm hover:border-violet-500/30 transition-colors group">
+          <div className="p-6 rounded-2xl bg-zinc-900/60 border border-zinc-700/50 backdrop-blur-sm hover:border-zinc-500/30 transition-colors group">
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-xl bg-violet-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <BookOpen className="w-7 h-7 text-violet-400" />
+              <div className="w-14 h-14 rounded-xl bg-zinc-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <BookOpen className="w-7 h-7 text-zinc-400" />
               </div>
               <div>
                 <p className="text-3xl font-bold">{courses.length}</p>
@@ -124,7 +124,7 @@ export default async function TeacherDashboardPage() {
               <h3 className="text-xl font-medium text-zinc-300 mb-2">No courses yet</h3>
               <p className="text-zinc-500 mb-6 max-w-sm mx-auto">Create your first course to start sharing your knowledge with students</p>
               <Link href="/teacher/courses/new">
-                <Button className="bg-violet-600 hover:bg-violet-500">
+                <Button className="bg-zinc-100 hover:bg-white text-zinc-900">
                   <Plus className="w-4 h-4 mr-2" />
                   Create Your First Course
                 </Button>
@@ -139,7 +139,7 @@ export default async function TeacherDashboardPage() {
                   className="flex items-center justify-between p-5 hover:bg-zinc-800/40 transition-all group"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 rounded-xl bg-zinc-800 flex items-center justify-center overflow-hidden ring-1 ring-zinc-700/50 group-hover:ring-violet-500/30 transition-all">
+                    <div className="w-16 h-16 rounded-xl bg-zinc-800 flex items-center justify-center overflow-hidden ring-1 ring-zinc-700/50 group-hover:ring-zinc-500/30 transition-all">
                       {course.image_url ? (
                         <img
                           src={course.image_url}
@@ -151,7 +151,7 @@ export default async function TeacherDashboardPage() {
                       )}
                     </div>
                     <div>
-                      <h3 className="font-medium text-white group-hover:text-violet-300 transition-colors">{course.title}</h3>
+                      <h3 className="font-medium text-white group-hover:text-zinc-300 transition-colors">{course.title}</h3>
                       <p className="text-sm text-zinc-500 mt-1">
                         {course.module_count || (course as any).modules?.length || 0} modules • {course.lesson_count || (course as any).lessons?.length || 0} lessons
                       </p>
@@ -163,7 +163,7 @@ export default async function TeacherDashboardPage() {
                         course.tier === "free"
                           ? "bg-zinc-800 text-zinc-300"
                           : course.tier === "pro"
-                          ? "bg-violet-500/20 text-violet-400"
+                          ? "bg-zinc-500/20 text-zinc-300"
                           : "bg-amber-500/20 text-amber-400"
                       }`}
                     >
@@ -174,7 +174,7 @@ export default async function TeacherDashboardPage() {
                         Featured
                       </span>
                     )}
-                    <ChevronRight className="w-5 h-5 text-zinc-600 group-hover:text-violet-400 group-hover:translate-x-1 transition-all" />
+                    <ChevronRight className="w-5 h-5 text-zinc-600 group-hover:text-white group-hover:translate-x-1 transition-all" />
                   </div>
                 </Link>
               ))}

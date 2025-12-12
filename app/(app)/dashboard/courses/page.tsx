@@ -26,13 +26,13 @@ export default async function MyCoursesPage() {
     <div className="min-h-screen bg-[#09090b] text-white overflow-hidden">
       {/* Animated gradient mesh background */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[-20%] left-[-10%] w-[700px] h-[700px] bg-violet-600/20 rounded-full blur-[150px] animate-pulse" />
+        <div className="absolute top-[-20%] left-[-10%] w-[700px] h-[700px] bg-zinc-600/20 rounded-full blur-[150px] animate-pulse" />
         <div
-          className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-fuchsia-600/15 rounded-full blur-[120px] animate-pulse"
+          className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-zinc-500/15 rounded-full blur-[120px] animate-pulse"
           style={{ animationDelay: "1s" }}
         />
         <div
-          className="absolute top-[40%] right-[20%] w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[100px] animate-float"
+          className="absolute top-[40%] right-[20%] w-[500px] h-[500px] bg-zinc-400/10 rounded-full blur-[100px] animate-float"
           style={{ animationDelay: "2s" }}
         />
       </div>
@@ -85,7 +85,7 @@ export default async function MyCoursesPage() {
             </p>
             <Link 
               href="/dashboard"
-              className="inline-flex items-center gap-2 text-violet-400 hover:text-violet-300"
+              className="inline-flex items-center gap-2 text-zinc-400 hover:text-white"
             >
               Back to Dashboard
               <ArrowRight className="w-4 h-4" />

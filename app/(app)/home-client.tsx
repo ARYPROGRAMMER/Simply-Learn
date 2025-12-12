@@ -108,21 +108,21 @@ export function StaggerItem({
 }
 
 export function GlowOrb({
-  color = "violet",
+  color = "gray",
   size = 700,
   blur = 150,
   className = "",
 }: {
-  color?: "violet" | "fuchsia" | "cyan" | "amber";
+  color?: "gray" | "white" | "zinc" | "amber";
   size?: number;
   blur?: number;
   className?: string;
 }) {
   const colorMap = {
-    violet: "rgba(139, 92, 246, 0.25)",
-    fuchsia: "rgba(217, 70, 239, 0.2)",
-    cyan: "rgba(6, 182, 212, 0.15)",
-    amber: "rgba(251, 191, 36, 0.15)",
+    gray: "rgba(161, 161, 170, 0.1)",
+    white: "rgba(255, 255, 255, 0.08)",
+    zinc: "rgba(113, 113, 122, 0.12)",
+    amber: "rgba(251, 191, 36, 0.1)",
   };
 
   return (
@@ -243,25 +243,25 @@ export function AnimatedBackground() {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden">
       <GlowOrb
-        color="violet"
+        color="white"
         size={800}
         blur={180}
         className="top-[-20%] left-[-10%]"
       />
       <GlowOrb
-        color="fuchsia"
+        color="gray"
         size={600}
         blur={150}
         className="bottom-[-10%] right-[-10%]"
       />
       <GlowOrb
-        color="cyan"
+        color="zinc"
         size={500}
         blur={120}
         className="top-[30%] right-[15%]"
       />
       <GlowOrb
-        color="violet"
+        color="white"
         size={350}
         blur={100}
         className="bottom-[30%] left-[10%]"

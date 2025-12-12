@@ -42,7 +42,7 @@ export function CourseHero({
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Thumbnail */}
         <div
-          className={`relative w-full lg:w-96 h-56 lg:h-60 rounded-2xl bg-linear-to-br ${styles.gradient} flex items-center justify-center overflow-hidden shrink-0 shadow-2xl shadow-violet-500/10`}
+          className={`relative w-full lg:w-96 h-56 lg:h-60 rounded-2xl bg-linear-to-br ${styles.gradient} flex items-center justify-center overflow-hidden shrink-0 shadow-2xl shadow-zinc-500/10`}
         >
           {imageUrl ? (
             <Image
@@ -86,7 +86,7 @@ export function CourseHero({
 
           <div className="flex flex-wrap items-center gap-4 text-sm">
             <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-800/60 border border-zinc-700/50">
-              <BookOpen className="w-4 h-4 text-violet-400" />
+              <BookOpen className="w-4 h-4 text-zinc-400" />
               <span className="text-zinc-300">{moduleCount ?? 0} modules</span>
             </div>
             <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-800/60 border border-zinc-700/50">

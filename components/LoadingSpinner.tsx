@@ -43,7 +43,7 @@ function LoadingSpinner({
         <motion.div
           animate={{ opacity: [0.3, 0.6, 0.3] }}
           transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
-          className="absolute inset-0 rounded-full bg-violet-500/20 blur-md"
+          className="absolute inset-0 rounded-full bg-white/10 blur-md"
           style={{ transform: "scale(1.5)" }}
         />
         
@@ -54,8 +54,8 @@ function LoadingSpinner({
           className="absolute inset-0 rounded-full"
           style={{
             border: `${ring}px solid transparent`,
-            borderTopColor: "rgb(139 92 246)",
-            borderRightColor: "rgb(192 132 252)",
+            borderTopColor: "rgb(161 161 170)",
+            borderRightColor: "rgb(212 212 216)",
           }}
         />
         
@@ -66,7 +66,7 @@ function LoadingSpinner({
           className="absolute inset-0 flex items-center justify-center"
         >
           <div 
-            className="rounded-full bg-linear-to-r from-violet-500 to-fuchsia-500"
+            className="rounded-full bg-linear-to-r from-zinc-400 to-zinc-300"
             style={{ width: spinner * 0.3, height: spinner * 0.3 }}
           />
         </motion.div>

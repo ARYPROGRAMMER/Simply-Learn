@@ -89,7 +89,7 @@ export function TutorMessages({ messages, isLoading }: TutorMessagesProps) {
                     ${
                       message.role === "assistant"
                         ? "bg-linear-to-br from-cyan-400 to-blue-600"
-                        : "bg-linear-to-br from-violet-500 to-fuchsia-600"
+                        : "bg-linear-to-br from-zinc-400 to-zinc-600"
                     }
                   `}
                 >

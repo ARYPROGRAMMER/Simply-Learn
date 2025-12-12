@@ -105,7 +105,7 @@ export function LessonPageContent({ lesson, userId, completedLessonIds }: Lesson
             {lesson.content && (
               <div className="bg-zinc-900/50 border border-zinc-800 rounded-xl p-6 md:p-8 mb-6">
                 <div className="flex items-center gap-2 mb-6">
-                  <BookOpen className="w-5 h-5 text-violet-400" />
+                  <BookOpen className="w-5 h-5 text-zinc-400" />
                   <h2 className="text-lg font-semibold">Lesson Notes</h2>
                 </div>
                 <LessonContentXano content={lesson.content} />
@@ -131,7 +131,7 @@ export function LessonPageContent({ lesson, userId, completedLessonIds }: Lesson
 
               {nextLesson ? (
                 <Link href={`/lessons/${nextLesson.slug}`}>
-                  <Button className="bg-violet-600 hover:bg-violet-500 text-white">
+                  <Button className="bg-zinc-600 hover:bg-zinc-500 text-white">
                     <span className="hidden sm:inline">{nextLesson.title}</span>
                     <span className="sm:hidden">Next</span>
                     <ChevronRight className="w-4 h-4 ml-2" />

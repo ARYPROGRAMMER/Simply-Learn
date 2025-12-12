@@ -78,7 +78,7 @@ export function ModuleAccordion({ modules, userId }: ModuleAccordionProps) {
             >
               <AccordionTrigger className="px-5 py-4 hover:no-underline hover:bg-zinc-800/50 transition-colors">
                 <div className="flex items-center gap-4 flex-1">
-                  <div className={`flex items-center justify-center w-10 h-10 rounded-xl ${isModuleComplete ? 'bg-emerald-500/20 text-emerald-400' : 'bg-violet-500/20 text-violet-400'} text-sm font-bold shrink-0 transition-colors`}>
+                  <div className={`flex items-center justify-center w-10 h-10 rounded-xl ${isModuleComplete ? 'bg-emerald-500/20 text-emerald-400' : 'bg-white/10 text-zinc-300'} text-sm font-bold shrink-0 transition-colors`}>
                     {isModuleComplete ? <CheckCircle2 className="w-5 h-5" /> : index + 1}
                   </div>
                   <div className="flex-1 text-left min-w-0">
@@ -134,7 +134,7 @@ export function ModuleAccordion({ modules, userId }: ModuleAccordionProps) {
                         </span>
 
                         {hasVideo && (
-                          <div className="flex items-center gap-1 px-2 py-1 rounded-md bg-violet-500/10 text-violet-400 text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+                          <div className="flex items-center gap-1 px-2 py-1 rounded-md bg-white/5 text-zinc-400 text-xs opacity-0 group-hover:opacity-100 transition-opacity">
                             <Play className="w-3 h-3" />
                             Video
                           </div>

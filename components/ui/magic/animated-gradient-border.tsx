@@ -21,7 +21,7 @@ export function AnimatedGradientBorder({
     <div className={cn("relative", containerClassName)}>
       <motion.div
         className={cn(
-          "absolute -inset-[1px] rounded-xl bg-linear-to-r from-violet-600 via-pink-600 to-violet-600 opacity-75 blur-sm",
+          "absolute -inset-[1px] rounded-xl bg-linear-to-r from-white via-zinc-400 to-white opacity-75 blur-sm",
           borderClassName
         )}
         animate={{

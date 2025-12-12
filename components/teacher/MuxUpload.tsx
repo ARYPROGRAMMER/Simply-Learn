@@ -196,7 +196,7 @@ export function MuxUpload({ onUploadComplete, onError }: MuxUploadProps) {
   return (
     <div className="space-y-4">
       {status === "idle" && (
-        <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-zinc-600 rounded-xl hover:border-violet-500 transition-colors cursor-pointer bg-zinc-900/60">
+        <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-zinc-600 rounded-xl hover:border-zinc-400 transition-colors cursor-pointer bg-zinc-900/60">
           <div className="flex flex-col items-center justify-center pt-5 pb-6">
             <Upload className="w-10 h-10 mb-3 text-zinc-400" />
             <p className="mb-2 text-sm text-zinc-300">
@@ -215,13 +215,13 @@ export function MuxUpload({ onUploadComplete, onError }: MuxUploadProps) {
 
       {status === "getting-url" && (
         <div className="flex flex-col items-center justify-center h-48 border-2 border-zinc-600 rounded-xl bg-zinc-900/60">
-          <Loader2 className="w-8 h-8 text-violet-500 animate-spin mb-2" />
+          <Loader2 className="w-8 h-8 text-zinc-400 animate-spin mb-2" />
           <p className="text-zinc-300">Preparing upload...</p>
         </div>
       )}
 
       {status === "uploading" && (
-        <div className="flex flex-col items-center justify-center h-48 border-2 border-violet-500 rounded-xl bg-zinc-900/60">
+        <div className="flex flex-col items-center justify-center h-48 border-2 border-zinc-400 rounded-xl bg-zinc-900/60">
           <div className="w-full max-w-xs px-4">
             <div className="flex justify-between text-sm text-zinc-300 mb-2">
               <span>Uploading...</span>
@@ -229,7 +229,7 @@ export function MuxUpload({ onUploadComplete, onError }: MuxUploadProps) {
             </div>
             <div className="w-full bg-zinc-700 rounded-full h-2">
               <div
-                className="bg-violet-500 h-2 rounded-full transition-all duration-300"
+                className="bg-zinc-400 h-2 rounded-full transition-all duration-300"
                 style={{ width: `${progress}%` }}
               />
             </div>
