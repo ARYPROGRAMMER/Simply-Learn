@@ -127,12 +127,36 @@ export async function upgradeTier(
 
 // ============ Courses API ============
 
+interface CoursesListResponse {
+  courses: Course[];
+  modules: Module[];
+  lessons: Lesson[];
+}
+
 export async function getAllCourses(): Promise<Course[]> {
-  return fetchApi<Course[]>("/courses");
+  const response = await fetchApi<CoursesListResponse>("/courses");
+  
+  // Calculate module and lesson counts for each course
+  return response.courses.map(course => ({
+    ...course,
+    module_count: response.modules.filter(m => m.course === course.id).length,
+    lesson_count: response.lessons.filter(l => 
+      response.modules.some(m => m.id === l.module && m.course === course.id)
+    ).length,
+  }));
 }
 
 export async function getFeaturedCourses(): Promise<Course[]> {
-  return fetchApi<Course[]>("/courses/featured");
+  const response = await fetchApi<CoursesListResponse>("/courses/featured");
+  
+  // Calculate module and lesson counts for each course
+  return response.courses.map(course => ({
+    ...course,
+    module_count: response.modules.filter(m => m.course === course.id).length,
+    lesson_count: response.lessons.filter(l => 
+      response.modules.some(m => m.id === l.module && m.course === course.id)
+    ).length,
+  }));
 }
 
 export async function getCourseBySlug(slug: string): Promise<CourseWithModules> {
@@ -253,8 +277,23 @@ export async function searchCourses(
 
 // ============ Teacher API ============
 
+interface TeacherCoursesResponse {
+  courses: Course[];
+  modules: Module[];
+  lessons: Lesson[];
+}
+
 export async function getTeacherCourses(authToken: string): Promise<Course[]> {
-  return fetchApi<Course[]>("/teacher/courses", {}, authToken);
+  const response = await fetchApi<TeacherCoursesResponse>("/teacher/courses", {}, authToken);
+  
+  // Attach module and lesson counts to each course
+  return response.courses.map(course => ({
+    ...course,
+    module_count: response.modules.filter(m => m.course === course.id).length,
+    lesson_count: response.lessons.filter(l => 
+      response.modules.some(m => m.id === l.module && m.course === course.id)
+    ).length,
+  }));
 }
 
 export async function getTeacherCourseById(

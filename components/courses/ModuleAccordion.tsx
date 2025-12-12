@@ -83,7 +83,7 @@ export function ModuleAccordion({ modules, userId }: ModuleAccordionProps) {
                   </div>
                   <div className="flex-1 text-left min-w-0">
                     <h3 className="font-semibold text-white">
-                      {module.title ?? "Untitled Module"}
+                      {typeof module.title === 'string' ? module.title : "Untitled Module"}
                     </h3>
                     <p className="text-sm text-zinc-500 mt-1">
                       {total} {total === 1 ? "lesson" : "lessons"}
@@ -130,7 +130,7 @@ export function ModuleAccordion({ modules, userId }: ModuleAccordionProps) {
                             lessonCompleted ? "text-zinc-400 line-through decoration-zinc-600" : "text-zinc-300"
                           } group-hover:text-white transition-colors`}
                         >
-                          {lesson.title ?? "Untitled Lesson"}
+                          {typeof lesson.title === 'string' ? lesson.title : "Untitled Lesson"}
                         </span>
 
                         {hasVideo && (

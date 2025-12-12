@@ -30,45 +30,64 @@ export default async function CoursePage({ params }: CoursePageProps) {
     notFound();
   }
 
+  // Helper to check if value is an empty object
+  const isEmptyObject = (obj: unknown): boolean => 
+    obj !== null && typeof obj === 'object' && !Array.isArray(obj) && Object.keys(obj as object).length === 0;
+  
+  // Helper to safely get string value (empty objects become null)
+  const safeString = (val: unknown): string | null => {
+    if (val === null || val === undefined) return null;
+    if (typeof val === 'string') return val;
+    if (isEmptyObject(val)) return null;
+    return String(val);
+  };
+
+  // Helper to safely get any value (empty objects become null)
+  const safeValue = <T,>(val: T): T | null => {
+    if (val === null || val === undefined) return null;
+    if (isEmptyObject(val)) return null;
+    return val;
+  };
+
   // Nest lessons inside their modules (Xano returns them separately)
-  const modulesWithLessons = course.modules?.map((m) => ({
+  const modulesWithLessons = (course.modules || []).filter(m => m && !isEmptyObject(m)).map((m) => ({
     ...m,
-    lessons: course.lessons?.filter((l) => l.module === m.id) || [],
-  })) || [];
+    lessons: (course.lessons || []).filter((l) => l && !isEmptyObject(l) && l.module === m.id),
+  }));
 
   // Transform the Xano course to match the existing component format
   const transformedCourse = {
     _id: String(course.id),
-    title: course.title,
-    slug: { current: course.slug },
-    description: course.description,
-    tier: course.tier,
-    featured: course.featured,
-    thumbnail: course.image_url
+    title: safeString(course.title) || "Untitled Course",
+    slug: { current: typeof course.slug === 'string' ? course.slug : slug },
+    description: safeString(course.description),
+    tier: (typeof course.tier === 'string' ? course.tier : "free") as "free" | "pro" | "ultra",
+    featured: typeof course.featured === 'boolean' ? course.featured : false,
+    thumbnail: course.image_url && typeof course.image_url === 'string'
       ? { asset: { _id: "", url: course.image_url } }
       : null,
-    category: course.category
-      ? { _id: String(course.category.id), title: course.category.title }
+    category: course.category && typeof course.category === 'object' && !isEmptyObject(course.category) && 'id' in course.category && course.category.id
+      ? { _id: String(course.category.id), title: safeString(course.category.title) }
       : null,
     modules: modulesWithLessons.map((m) => ({
       _id: String(m.id),
-      title: m.title,
-      description: m.description,
-      completedBy: [],
-      lessons: m.lessons?.map((l) => ({
+      title: safeString(m.title) || "Untitled Module",
+      description: safeString(m.description),
+      completedBy: [] as string[],
+      lessons: (m.lessons || []).map((l) => ({
         _id: String(l.id),
-        title: l.title,
-        slug: { current: l.slug },
-        description: l.description,
-        completedBy: l.is_completed ? [String(user?.id)] : [],
-        video: l.mux_playback_id
+        title: safeString(l.title) || "Untitled Lesson",
+        slug: { current: typeof l.slug === 'string' ? l.slug : "" },
+        description: safeString(l.description),
+        completedBy: l.is_completed ? [String(user?.id)] : [] as string[],
+        video: l.mux_playback_id && typeof l.mux_playback_id === 'string'
           ? { asset: { playbackId: l.mux_playback_id } }
           : null,
-      })) || [],
+      })),
     })),
-    completedBy: [],
-    moduleCount: course.module_count || modulesWithLessons.length || 0,
-    lessonCount: course.lesson_count || course.lessons?.length || 0,
+    completedBy: [] as string[],
+    moduleCount: modulesWithLessons.length,
+    lessonCount: course.lessons?.length || 0,
     completedLessonCount: course.completed_lesson_count || 0,
   };
 

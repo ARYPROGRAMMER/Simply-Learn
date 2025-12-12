@@ -199,18 +199,13 @@ export default async function Home() {
             {courses.map((course) => (
               <CourseCard
                 key={course.id}
-                course={{
-                  _id: String(course.id),
-                  title: course.title,
-                  slug: { current: course.slug },
-                  description: course.description,
-                  tier: course.tier,
-                  thumbnail: course.image_url
-                    ? { asset: { _id: "", url: course.image_url } }
-                    : null,
-                  moduleCount: course.module_count || 0,
-                  lessonCount: course.lesson_count || 0,
-                }}
+                title={course.title}
+                slug={course.slug}
+                description={course.description}
+                tier={course.tier}
+                image_url={course.image_url}
+                moduleCount={course.module_count || 0}
+                lessonCount={course.lesson_count || 0}
               />
             ))}
           </div>

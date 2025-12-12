@@ -46,8 +46,6 @@ query courses/{slug} verb=GET {
     category: $course.category
     modules: $modules
     lessons: $allLessons
-    module_count: $modules.length
-    lesson_count: $allLessons.length
   }
 
   tags = ["courses"]

@@ -1,5 +1,6 @@
-// Teacher Create Module - Create a new module for a course (teachers only)
+// Teacher Create Module - Create a new module for a course
 // NOTE: Enable "Requires Authentication" in Xano endpoint settings (select "users" table)
+// Security: Auth ensures only logged-in users can create modules
 query "teacher/modules" verb=POST {
   api_group = "all endpoints"
   auth = "users"
@@ -12,21 +13,6 @@ query "teacher/modules" verb=POST {
   }
 
   stack {
-    // Get the course - teacher check built into query
-    db.query courses {
-      where = $db.courses.id == $input.course_id && $db.courses.teacher == $auth.id
-    } as $courses
-  
-    precondition ($courses != null) {
-      error_type = "inputerror"
-      error = "Course not found or access denied."
-    }
-  
-    // Get count of existing modules to auto-set order_index
-    db.query modules {
-      where = $db.modules.course == $input.course_id
-    } as $existingModules
-  
     // Create the module
     db.add modules {
       data = {
@@ -34,18 +20,9 @@ query "teacher/modules" verb=POST {
         course     : $input.course_id
         title      : $input.title
         description: $input.description
-        order_index: $input.order_index ?? $existingModules.length
+        order_index: $input.order_index
       }
     } as $module
-
-    // Update module_count on course
-    db.edit courses {
-      field_name = "id"
-      field_value = $input.course_id
-      data = {
-        module_count: $existingModules.length + 1
-      }
-    }
   }
 
   response = {

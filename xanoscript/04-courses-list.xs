@@ -1,5 +1,4 @@
-// Get All Courses - Returns list of all courses
-// NOTE: module_count and lesson_count are stored fields on courses table
+// Get All Courses - Returns list of all courses with modules and lessons
 query courses verb=GET {
   input {}
 
@@ -8,9 +7,23 @@ query courses verb=GET {
     db.query courses {
       sort = {courses.id: "desc"}
     } as $courses
+
+    // Get all modules
+    db.query modules {
+      sort = {modules.order_index: "asc"}
+    } as $allModules
+
+    // Get all lessons
+    db.query lessons {
+      sort = {lessons.order_index: "asc"}
+    } as $allLessons
   }
 
-  response = $courses
+  response = {
+    courses: $courses
+    modules: $allModules
+    lessons: $allLessons
+  }
 
   tags = ["courses"]
 }

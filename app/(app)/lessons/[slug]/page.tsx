@@ -15,7 +15,8 @@ export default async function LessonPage({ params }: LessonPageProps) {
   let lesson;
   try {
     lesson = await getLessonBySlug(slug);
-  } catch {
+  } catch (error) {
+    console.error("Error fetching lesson:", error);
     notFound();
   }
 
@@ -23,44 +24,24 @@ export default async function LessonPage({ params }: LessonPageProps) {
     notFound();
   }
 
-  // Transform lesson for existing components
-  const transformedLesson = {
-    _id: String(lesson.id),
-    title: lesson.title,
-    slug: { current: lesson.slug },
-    description: lesson.description,
-    video: lesson.mux_playback_id
-      ? {
-          asset: {
-            playbackId: lesson.mux_playback_id,
-            status: "ready",
-            data: { duration: lesson.video_duration },
-          },
-        }
-      : null,
-    content: lesson.content ? JSON.parse(lesson.content) : null,
-    completedBy: lesson.is_completed && user ? [String(user.id)] : [],
-    courses: lesson.course
-      ? [
-          {
-            _id: String(lesson.course.id),
-            title: lesson.course.title,
-            slug: { current: lesson.course.slug },
-            tier: lesson.course.tier,
-            modules: lesson.course.modules?.map((m) => ({
-              _id: String(m.id),
-              title: m.title,
-              lessons: m.lessons?.map((l) => ({
-                _id: String(l.id),
-                title: l.title,
-                slug: { current: l.slug },
-                completedBy: l.is_completed && user ? [String(user.id)] : [],
-              })) || [],
-            })) || [],
-          },
-        ]
-      : [],
+  // Get all lessons from course.all_lessons and nest them into modules
+  const allLessons = lesson.course?.all_lessons || [];
+  const modulesWithLessons = (lesson.course?.modules || []).map((m: { id: number; title: string; order_index: number }) => ({
+    ...m,
+    lessons: allLessons.filter((l: { module: number }) => l.module === m.id),
+  }));
+
+  // Build the lesson with context in the format expected by LessonPageContent
+  const lessonWithContext = {
+    ...lesson,
+    course: lesson.course ? {
+      ...lesson.course,
+      modules: modulesWithLessons,
+    } : undefined,
   };
+
+  // Get completed lesson IDs (for now empty, would need progress API)
+  const completedLessonIds: number[] = [];
 
   return (
     <div className="min-h-screen bg-[#09090b] text-white overflow-hidden">
@@ -90,7 +71,11 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
       {/* Main Content */}
       <main className="relative z-10 px-6 lg:px-12 py-8 max-w-7xl mx-auto">
-        <LessonPageContent lesson={transformedLesson} userId={user?.id ? String(user.id) : null} />
+        <LessonPageContent 
+          lesson={lessonWithContext} 
+          userId={user?.id || null} 
+          completedLessonIds={completedLessonIds}
+        />
       </main>
     </div>
   );

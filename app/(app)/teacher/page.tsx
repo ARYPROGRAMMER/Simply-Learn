@@ -29,8 +29,16 @@ export default async function TeacherDashboardPage() {
     redirect("/auth/login");
   }
 
-  const totalLessons = courses.reduce((sum, course) => sum + (course.lesson_count || 0), 0);
-  const totalModules = courses.reduce((sum, course) => sum + (course.module_count || 0), 0);
+  const totalLessons = courses.reduce((sum, course) => {
+    // Try stored count first, then calculate from lessons array
+    const count = course.lesson_count || (course as any).lessons?.length || 0;
+    return sum + count;
+  }, 0);
+  const totalModules = courses.reduce((sum, course) => {
+    // Try stored count first, then calculate from modules array
+    const count = course.module_count || (course as any).modules?.length || 0;
+    return sum + count;
+  }, 0);
 
   return (
     <div className="min-h-screen bg-[#09090b] text-white">
@@ -145,7 +153,7 @@ export default async function TeacherDashboardPage() {
                     <div>
                       <h3 className="font-medium text-white group-hover:text-violet-300 transition-colors">{course.title}</h3>
                       <p className="text-sm text-zinc-500 mt-1">
-                        {course.module_count || 0} modules • {course.lesson_count || 0} lessons
+                        {course.module_count || (course as any).modules?.length || 0} modules • {course.lesson_count || (course as any).lessons?.length || 0} lessons
                       </p>
                     </div>
                   </div>

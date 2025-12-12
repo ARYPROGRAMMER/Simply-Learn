@@ -163,9 +163,9 @@ export default function NewCoursePage() {
                   <SelectValue placeholder="Select tier" />
                 </SelectTrigger>
                 <SelectContent className="bg-zinc-900 border-zinc-700">
-                  <SelectItem value="free">Free - Everyone</SelectItem>
-                  <SelectItem value="pro">Pro - Pro & Ultra members</SelectItem>
-                  <SelectItem value="ultra">Ultra - Ultra members only</SelectItem>
+                  <SelectItem className="text-white" value="free">Free - Everyone</SelectItem>
+                  <SelectItem className="text-white" value="pro">Pro - Pro & Ultra members</SelectItem>
+                  <SelectItem className="text-white" value="ultra">Ultra - Ultra members only</SelectItem>
                 </SelectContent>
               </Select>
             </div>

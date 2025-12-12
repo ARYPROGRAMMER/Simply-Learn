@@ -120,10 +120,14 @@ export default function CourseEditorPage() {
 
     setIsCreatingModule(true);
     try {
+      // Calculate order_index based on existing modules
+      const existingModulesCount = course.modules?.length || 0;
+      
       await createModule(authToken, {
         course_id: course.id,
         title: moduleTitle,
         description: moduleDescription || undefined,
+        order_index: existingModulesCount,
       });
 
       setModuleTitle("");
@@ -144,10 +148,14 @@ export default function CourseEditorPage() {
 
   const handleCreateLesson = async (e: React.FormEvent, moduleId: number) => {
     e.preventDefault();
-    if (!authToken) return;
+    if (!authToken || !course) return;
 
     setIsCreatingLesson(true);
     try {
+      // Calculate order_index based on existing lessons in this module
+      const module = course.modules?.find((m) => m.id === moduleId);
+      const existingLessonsCount = module?.lessons?.length || 0;
+      
       await createLesson(authToken, {
         module_id: moduleId,
         title: lessonTitle,
@@ -156,6 +164,7 @@ export default function CourseEditorPage() {
         content: lessonContent || undefined,
         mux_playback_id: lessonPlaybackId || undefined,
         duration: lessonDuration || undefined,
+        order_index: existingLessonsCount,
       });
 
       // Reset form

@@ -61,9 +61,9 @@ export function CourseHero({
         <div className="flex-1">
           <div className="flex flex-wrap items-center gap-3 mb-4">
             <Badge className={`${styles.text} ${styles.border} bg-transparent font-semibold px-3 py-1`}>
-              {displayTier.toUpperCase()}
+              {typeof displayTier === 'string' ? displayTier.toUpperCase() : "FREE"}
             </Badge>
-            {category?.title && (
+            {category?.title && typeof category.title === 'string' && (
               <Badge
                 variant="outline"
                 className="border-zinc-700 text-zinc-400 px-3 py-1"
@@ -75,10 +75,10 @@ export function CourseHero({
           </div>
 
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight mb-4 text-white leading-tight">
-            {title ?? "Untitled Course"}
+            {typeof title === 'string' ? title : "Untitled Course"}
           </h1>
 
-          {description && (
+          {description && typeof description === 'string' && (
             <p className="text-lg text-zinc-400 mb-8 leading-relaxed max-w-2xl">
               {description}
             </p>
